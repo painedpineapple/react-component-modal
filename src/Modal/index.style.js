@@ -38,7 +38,6 @@ export default styled('div')(({ options: o }) => ({
   '> div': {
     boxShadow: '1px 1px 16px rgba(0, 0, 0, 0.12)',
     backgroundColor: 'rgba(255,255,255, 1)',
-    padding: 20,
   },
 
   ...o.styles,
