@@ -25,19 +25,25 @@ export default class Modal extends React.Component<tProps> {
   constructor(props: tProps) {
     super(props)
 
-    this.moundId = props.options.mountId || 'root-modal'
-    this.root = document.getElementById(props.options.rootId || 'root')
+    const options = this.props.options || {}
+
+    this.moundId = options.mountId || 'root-modal'
+    this.root = document.getElementById(options.rootId || 'root')
     this.mount = document.createElement('div')
+
     this.mount.style =
+      // $FlowFixMe
       'position: absolute; z-index: 1000; top: 0; left: 0; bottom: 0; right: 0; filter: blur(0px) !important;'
   }
   componentDidMount() {
+    // $FlowFixMe
     document.body.appendChild(this.mount)
     document
       .getElementsByTagName('body')[0]
       .classList.add('component-modal-active')
   }
   componentWillUnmount() {
+    // $FlowFixMe
     document.body.removeChild(this.mount)
     document
       .getElementsByTagName('body')[0]
