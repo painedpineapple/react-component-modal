@@ -27,27 +27,33 @@ export default class Modal extends React.Component<tProps> {
 
     const options = this.props.options || {}
 
-    this.moundId = options.mountId || 'root-modal'
-    this.root = document.getElementById(options.rootId || 'root')
-    this.mount = document.createElement('div')
+    if (typeof document != 'undefined') {
+      this.moundId = options.mountId || 'root-modal'
+      this.root = document.getElementById(options.rootId || 'root')
+      this.mount = document.createElement('div')
 
-    this.mount.style =
-      // $FlowFixMe
-      'position: absolute; z-index: 1000; top: 0; left: 0; bottom: 0; right: 0; filter: blur(0px) !important;'
+      this.mount.style =
+        // $FlowFixMe
+        'position: absolute; z-index: 1000; top: 0; left: 0; bottom: 0; right: 0; filter: blur(0px) !important;'
+    }
   }
   componentDidMount() {
-    // $FlowFixMe
-    document.body.appendChild(this.mount)
-    document
-      .getElementsByTagName('body')[0]
-      .classList.add('component-modal-active')
+    if (typeof document != 'undefined') {
+      // $FlowFixMe
+      document.body.appendChild(this.mount)
+      document
+        .getElementsByTagName('body')[0]
+        .classList.add('component-modal-active')
+    }
   }
   componentWillUnmount() {
-    // $FlowFixMe
-    document.body.removeChild(this.mount)
-    document
-      .getElementsByTagName('body')[0]
-      .classList.remove('component-modal-active')
+    if (typeof document != 'undefined') {
+      // $FlowFixMe
+      document.body.removeChild(this.mount)
+      document
+        .getElementsByTagName('body')[0]
+        .classList.remove('component-modal-active')
+    }
   }
   render() {
     const { options: opts, children, ...attrs } = this.props
