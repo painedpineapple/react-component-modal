@@ -1,16 +1,62 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
+import faker from 'faker'
+import _ from 'lodash'
+//
+import Modal from './Modal'
+import modalStyles from './styles'
 
-import './styles.css'
-
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
-  )
+const styles = {
+  p: {
+    maxWidth: '800px',
+    fontSize: 18,
+    margin: 30,
+  },
 }
 
-const rootElement = document.getElementById('root')
-ReactDOM.render(<App />, rootElement)
+class App extends React.Component<{}, { isActive: boolean }> {
+  state = {
+    isActive: false,
+  }
+  handleClick = () => {
+    this.setState(prevState => ({
+      isActive: !prevState.isActive,
+    }))
+  }
+  render() {
+    return (
+      <div>
+        <button
+          onClick={this.handleClick}
+          style={{
+            position: 'absolute',
+            right: 30,
+            top: 30,
+            zIndex: '9999999999999',
+          }}
+        >
+          Toggle Modal
+        </button>
+        <div style={{ marginTop: 80 }}>
+          {_.times(20, () => (
+            <p key={faker.random.uuid()} style={styles.p}>
+              {faker.lorem.paragraph()}
+            </p>
+          ))}
+        </div>
+        {this.state.isActive && (
+          <Modal
+            options={{
+              styles: modalStyles,
+            }}
+          >
+            Modal content
+            <button onClick={this.handleClick}>Toggle Modal</button>
+          </Modal>
+        )}
+      </div>
+    )
+  }
+}
+
+render(<App />, document.getElementById('root'))
