@@ -8,13 +8,12 @@ import Container from './index.style'
 const AnimatedContainer = animated(Container)
 
 type tProps = {
-  options: {
-    items: Array<any>,
+  options?: {
     rootId?: string,
     mountId?: string,
     styles?: {},
   },
-  children: () => any,
+  children: any,
 }
 
 export default class Modal extends React.Component<tProps> {
